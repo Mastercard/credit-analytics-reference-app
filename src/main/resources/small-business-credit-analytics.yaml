@@ -1,0 +1,550 @@
+openapi: 3.0.3
+info:
+  description: >-
+    A collection of Mastercard-provided APIs for retrieving merchant metrics
+    that help in making lending decisions.
+  version: 0.0.1
+  title: Small Business Credit Analytics API
+  contact:
+    name: API Support
+    url: 'https://developer.mastercard.com/support'
+    email: apisupport@mastercard.com
+servers:
+  - url: 'https://api.mastercard.com/small-business/credit-analytics/locations'
+    description: Production server
+  - url: 'https://sandbox.api.mastercard.com/small-business/credit-analytics/locations'
+    description: Sandbox server
+tags:
+  - name: matching
+    description: Identifying the relevant merchant based on provided metadata
+  - name: metrics
+    description: Retrieval of merchant performance and other helpful metrics
+paths:
+  /matches:
+    get:
+      tags:
+        - matching
+      summary: Identify a merchant in Mastercard data based on provided metadata
+      description: >-
+        Using the provided merchant metadata, similarity to merchant information
+        in Mastercard's central locations table is determined and up to 10 of
+        the best matches are returned for consideration.
+      operationId: getMatches
+      parameters:
+        - $ref: '#/components/parameters/companyNameParameter'
+        - $ref: '#/components/parameters/streetAddressParameter'
+        - $ref: '#/components/parameters/postalCodeParameter'
+        - $ref: '#/components/parameters/cityParameter'
+        - $ref: '#/components/parameters/stateProvinceCodeParameter'
+        - $ref: '#/components/parameters/countryCodeParameter'
+      responses:
+        '200':
+          $ref: '#/components/responses/MatchesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+        - credit_analytics_auth:
+            - general_access
+  '/metrics/{location_id}':
+    get:
+      tags:
+        - metrics
+      summary: Get performance metrics of a matched merchant
+      description: >-
+        Returns a large set of varied metrics for a given merchant that can be
+        used to inform lending decisions.
+      operationId: getMetrics
+      parameters:
+        - $ref: '#/components/parameters/locationIdParameter'
+        - $ref: '#/components/parameters/hasConsentParameter'
+      responses:
+        '200':
+          $ref: '#/components/responses/MetricsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      security:
+        - credit_analytics_auth:
+            - general_access
+components:
+  examples:
+    MultipleMatches:
+      value:
+        - locationId: 123e4567-e89b-12d3-a456-426614174000
+          matchRank: 1
+          merchantName: Fancy Restaurant
+          streetAddress: '123 Main Street, Ste. 200'
+          city: CityVille
+          state: NY
+          postalCode: 12345
+          countryCode: USA
+        - locationId: 123e4567-e89b-12d3-a456-123456123456
+          matchRank: 2
+          merchantName: Similar Restaurant
+          streetAddress: 125 Main Street
+          city: CityVille
+          state: NY
+          postalCode: 12346
+          countryCode: USA
+    BadRequestExample:
+      value:
+        Errors:
+          Error:
+            - Source: CreditAnalytics
+              ReasonCode: querystring.country_code.missing
+              Description: >-
+                The country_code querystring parameter is required but not
+                provided.
+              Recoverable: false
+              Details: null
+            - Source: CreditAnalytics
+              ReasonCode: 'invalid data: countryCode'
+              Description: >-
+                This error is thrown when an argument passed to the API doesn't
+                pass validation
+              Recoverable: false
+              Details: 'must match "^[A-Z]{3}"'
+            - Source: CreditAnalytics
+              ReasonCode: 'invalid data: countryCode'
+              Description: >-
+                This error is thrown when an argument passed to the API doesn't
+                pass validation
+              Recoverable: false
+              Details: An invalid value was passed in for country_code - USB
+    UnauthorizedExample:
+      value:
+        Errors:
+          Error:
+            - Source: Gateway
+              ReasonCode: DECLINED
+              Description: Unauthorized - Access Not Granted
+              Recoverable: false
+              Details: null
+    ForbiddenExample:
+      value:
+        Errors:
+          Error:
+            - Source: CreditAnalytics
+              ReasonCode: CONSENT_NOT_PROVIDED
+              Description: The request was rejected because has_consent was set to false
+              Recoverable: false
+              Details: >-
+                Consent from the merchant is required in order to access
+                performance metrics for said merchant
+    NotFoundExample:
+      value:
+        Errors:
+          Error:
+            - Source: CreditAnalytics
+              ReasonCode: MATCHES_NOT_FOUND
+              Description: >-
+                This error is thrown when no potential matches for the provided
+                merchant information are found in Mastercard's merchant location
+                database.
+              Recoverable: false
+              Details: >-
+                No potential matches for the provided merchant information were
+                found in Mastercard's merchant location database.
+            - Source: CreditAnalytics
+              ReasonCode: LOCATION_NOT_FOUND
+              Description: >-
+                This error is thrown when a matched merchant is not found in
+                Mastercard's merchant metrics database. Often this is due to
+                Mastercard's ongoing reconciliation processes - try calling the
+                match/ API again with the original merchant details to get a new
+                location id.
+              Recoverable: false
+              Details: >-
+                The specified location could not be found in Mastercard's
+                merchant metrics database.
+  parameters:
+    companyNameParameter:
+      name: company_name
+      in: query
+      description: Name of merchant (DBA name).
+      example: Fancy Restaurant
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 250
+    streetAddressParameter:
+      name: street_address
+      in: query
+      description: The full street address of the merchant.
+      example: '123 Main Street, Ste. 200'
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 250
+    postalCodeParameter:
+      name: postal_code
+      in: query
+      description: >-
+        The postal code in the merchant's address. Expected conventions will be
+        determined based on country_code - e.g. for USA a 5-digit or 9-digit
+        postal code is expected.
+      example: 12345
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9A-Z- ]+'
+        minLength: 1
+        maxLength: 100
+    cityParameter:
+      name: city
+      in: query
+      description: The city name in the merchant's address.
+      example: CityVille
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 100
+    stateProvinceCodeParameter:
+      name: state_province_code
+      in: query
+      description: >-
+        The state or province abbreviation in the merchant's address. Expected
+        conventions will be determined based on country_code - e.g. for USA a
+        2-letter abbreviation is expected.
+      example: NY
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9A-Z]+'
+        minLength: 1
+        maxLength: 3
+    countryCodeParameter:
+      name: country_code
+      in: query
+      description: >-
+        The 3-letter country abbreviation for the merchant. These abbreviations
+        follow https://www.iso.org/iso-3166-country-codes.html, but only
+        currently-supported countries will be accepted.
+      example: USA
+      required: true
+      schema:
+        type: string
+        pattern: '^[A-Z]+'
+        minLength: 3
+        maxLength: 3
+    locationIdParameter:
+      name: location_id
+      in: path
+      description: Identifier of a merchant returned from /matches
+      example: 123e4567-e89b-12d3-a456-426614174000
+      required: true
+      schema:
+        type: string
+        format: uuid
+    hasConsentParameter:
+      name: has_consent
+      in: query
+      description: >-
+        A boolean indicating that the user of this API has consent to pull these
+        metrics for the requested merchant
+      required: true
+      example: true
+      schema:
+        type: boolean
+  responses:
+    MatchesResponse:
+      description: Operation was successful.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Match'
+          examples:
+            AddMultipleMatchesExample:
+              $ref: '#/components/examples/MultipleMatches'
+    MetricsResponse:
+      description: Operation was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MetricsPerLocation'
+    BadRequest:
+      description: >-
+        We couldn't handle your request, see response payload for more
+        information.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorWrapper'
+          examples:
+            BadRequestExample:
+              $ref: '#/components/examples/BadRequestExample'
+    Unauthorized:
+      description: >-
+        The request was not completed because authentication was unsuccessful
+        for the requested resource. See the response payload for more
+        information.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorWrapper'
+          examples:
+            UnauthorizedExample:
+              $ref: '#/components/examples/UnauthorizedExample'
+    Forbidden:
+      description: >-
+        You are not authorized to access the requested information. See the
+        response payload for more information.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorWrapper'
+          examples:
+            ForbiddenExample:
+              $ref: '#/components/examples/ForbiddenExample'
+    NotFound:
+      description: >-
+        We were unable to find resources for the specified parameters. See the
+        response payload for more information.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorWrapper'
+          examples:
+            NotFoundExample:
+              $ref: '#/components/examples/NotFoundExample'
+  securitySchemes:
+    credit_analytics_auth:
+      type: apiKey
+      name: api_key
+      in: header
+      description: >-
+        Mastercard uses one-legged OAuth1.0a to authenticate its APIs. See
+        https://developer.mastercard.com/platform/documentation/security-and-authentication/using-oauth-1a-to-access-mastercard-apis/
+        for more details.
+  schemas:
+    Match:
+      type: object
+      properties:
+        locationId:
+          type: string
+          description: A UUID describing a merchant location.
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+        matchRank:
+          type: integer
+          description: >-
+            The rank-ordered score of this match within the returned list of
+            matches
+          example: 1
+        merchantName:
+          type: string
+          description: Name of merchant (DBA name).
+          example: Fancy Restaurant
+        streetAddress:
+          type: string
+          description: The full street address of the merchant.
+          example: '123 Main Street, Ste. 200'
+        city:
+          type: string
+          description: The city in the merchant's address.
+          example: CityVille
+        state:
+          type: string
+          description: >-
+            The state or province abbreviation in the merchant's address.
+            Expectations on returned values can be set based on country_code -
+            e.g. for USA a 2-letter abbreviation is expected.
+          example: NY
+          pattern: '^[A-Z]+'
+        postalCode:
+          type: string
+          description: >-
+            The postal code in the merchant's address. Expectations on returned
+            values can be set based on country_code - e.g. for USA a 5-digit zip
+            or 9-digit zip+4 (with the hyphen) postal code is expected.
+          example: 12345
+          pattern: '^[0-9A-Z- ]+'
+        countryCode:
+          type: string
+          description: >-
+            The 3-letter country abbreviation for the merchant. These
+            abbreviations follow
+            https://www.iso.org/iso-3166-country-codes.html.
+          example: USA
+          pattern: '[A-Z]{3}'
+    MetricsPerLocation:
+      type: object
+      properties:
+        locationId:
+          type: string
+          description: A unique identifier describing a merchant location.
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+        merchantCategoryCode:
+          type: integer
+          description: >-
+            The Mastercard-defined merchant category code for the returned
+            merchant.
+          example: 17
+        naicsCode:
+          type: string
+          description: >-
+            The North American Industry Classification System-defined code for
+            the returned merchant.
+          example: 448140
+        industryName:
+          type: string
+          description: The Mastercard-defined name of the industry of the merchant.
+          example: Family Apparel
+        dateEstablished:
+          type: string
+          format: date
+          description: >-
+            The date of the first Mastercard transaction processed for this
+            merchant.
+          example: '2015-01-01'
+        lastSeenDate:
+          type: string
+          format: date
+          description: >-
+            The date of the last Mastercard transaction processed for this
+            merchant.
+          example: '2022-01-13'
+        metricsLists:
+          type: array
+          description: >-
+            Metric values per requested time period. For example, by default
+            weekly metrics for the past year are returned, resulting in 52
+            requested time periods of calculated metrics.
+          items:
+            $ref: '#/components/schemas/MetricsPerDate'
+          example:
+            - periodStartDate: '2022-01-02'
+              periodEndDate: '2022-01-08'
+              metrics:
+                - name: txn_amt
+                  value: 234.567890123
+                - name: txn_cnt
+                  value: 5
+            - periodStartDate: '2022-01-09'
+              periodEndDate: '2022-01-15'
+              metrics:
+                - name: txnAmt
+                  value: 123.456789012
+                - name: txnCnt
+                  value: 3
+    MetricsPerDate:
+      type: object
+      properties:
+        periodStartDate:
+          type: string
+          format: date
+          description: >-
+            The calendar date marking the beginning (inclusive) of the period
+            for which this metric was calculated.
+          example: '2022-01-02'
+        periodEndDate:
+          type: string
+          format: date
+          description: >-
+            The calendar date marking the end (inclusive) of the period for
+            which this metric was calculated.
+          example: '2022-01-08'
+        year:
+          type: integer
+          description: The calendar year for which this metric was calculated
+          example: 2022
+        week:
+          type: integer
+          description: The calendar week for which this metric was calculated.
+          example: 1
+        metrics:
+          type: array
+          description: Name-value pairs for all requested metrics for this time period
+          items:
+            $ref: '#/components/schemas/Metric'
+          example:
+            - name: txnAmt
+              value: 123.456789012
+            - name: txnCnt
+              value: 3
+    Metric:
+      type: object
+      properties:
+        name:
+          type: string
+          description: >-
+            The unique name of a merchant metric. The full list of possible
+            merchant metrics can be found in our technical documentation.
+          example: txnAmt
+        value:
+          type: number
+          format: double
+          description: The value of the merchant metric
+          example: 123.456789012
+    ErrorWrapper:
+      type: object
+      required:
+        - Errors
+      properties:
+        Errors:
+          $ref: '#/components/schemas/Errors'
+    Errors:
+      type: object
+      required:
+        - Error
+      properties:
+        Error:
+          $ref: '#/components/schemas/ErrorList'
+    ErrorList:
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        Source:
+          type: string
+          description: The name of the application that generated this error.
+          example: CreditAnalytics
+        ReasonCode:
+          type: string
+          description: >-
+            A unique constant identifying the error case encountered while
+            processing the API request.
+          example: INVALID_ARGUMENT
+        Description:
+          type: string
+          description: A short description of the ReasonCode field.
+          example: >-
+            This error is thrown when an argument passed to the API doesn't pass
+            validation
+        Recoverable:
+          type: boolean
+          description: >-
+            Indicates whether this error will always be returned for this
+            request, or retrying could change the outcome. For example, if the
+            request contains an invalid signature, retrying will never result in
+            a success. However, if the error is related to some unexpected
+            timeout with the service, retrying the call could result in a
+            successful response.
+          example: true
+        Details:
+          type: string
+          description: >-
+            Where appropriate, indicates detailed information about data
+            received and calculated during request processing, to help the user
+            with diagnosing errors.
+          example: >-
+            The country_code argument does not match any of the supported, valid
+            country codes
