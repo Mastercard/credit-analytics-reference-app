@@ -56,7 +56,7 @@ Check [Generating and Configuring a Mastercard API Client](https://developer.mas
 2. `/metrics/{location_id}` **Get performance metrics for a merchant** <br/>
    Use this endpoint to retrieve performance metrics for a matched merchant returned from /matches
 
-More details can be found [here](https://developer.mastercard.com/retail-credit-analytics/documentation/use-cases).
+More details can be found [here](https://developer.mastercard.com/small-business-credit-analytics/documentation/use-cases).
 
 
 ## Execute the Use-Cases   <a name="execute-the-use-cases"></a>
@@ -66,11 +66,11 @@ More details can be found [here](https://developer.mastercard.com/retail-credit-
 
 ## Service Documentation <a name="documentation"></a>
 
-Small Business Credit Analytics documentation can be found [here](https://developer.mastercard.com/retail-credit-analytics/documentation/).
+Small Business Credit Analytics documentation can be found [here](https://developer.mastercard.com/small-business-credit-analytics/documentation/).
 
 
 ## API Reference <a name="api-reference"></a>
-The OpenAPI specification can be found [here](https://developer.mastercard.com/retail-credit-analytics/documentation/api-reference/).
+The OpenAPI specification can be found [here](https://developer.mastercard.com/small-business-credit-analytics/documentation/api-reference/).
 
 ## Support <a name="support"></a>
 Please email **advisors.help@mastercard.com** with any questions or feedback you may have.
