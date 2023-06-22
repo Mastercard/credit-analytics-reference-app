@@ -22,21 +22,23 @@ public class ApiExamples {
 
     /* Constants */
 
-    public static final String SINGLE_MATCH_COMPANY_NAME = "SingleMatchCompany";
-    public static final String MULTIPLE_MATCHES_COMPANY_NAME = "MultipleMatchesCompany";
-    public static final String NO_MATCH_COMPANY_NAME = "NoMatchCompany";
+    public static final String SINGLE_MATCH_COMPANY_NAME = "Artisan Emporium";
+    public static final String MULTIPLE_MATCHES_COMPANY_NAME = "Creative Collective";
+    public static final String NO_MATCH_COMPANY_NAME = "Handcrafted Haven";
 
-    public static final String EXAMPLE_STREET_ADDRESS = "2000 Purchase St";
+    public static final String SINGLE_MATCH_STREET_ADDRESS = "2000 Purchase St";
+    public static final String MULTIPLE_MATCHES_STREET_ADDRESS = "2001 Purchase St";
+    public static final String NO_MATCH_STREET_ADDRESS = "2002 Purchase St";
     public static final String EXAMPLE_POSTAL_CODE = "10577";
     public static final String EXAMPLE_CITY = "Purchase";
     public static final String EXAMPLE_STATE_PROVINCE_CODE = "NY";
     public static final String USA_COUNTRY_CODE = "USA";
 
-    public static final String FULLY_POPULATED_METRICS_LOCATION_ID = "00000000-0000-0000-0000-000000000001";
-    public static final String PARTIALLY_POPULATED_METRICS_LOCATION_ID = "00000000-0000-0000-0000-000000000002";
-    public static final String PARTIAL_YEAR_METRICS_LOCATION_ID = "00000000-0000-0000-0000-000000000003";
-    public static final String NEWLY_ACCEPTING_LOCATION_ID = "00000000-0000-0000-0000-000000000004";
-    public static final String NOT_FOUND_LOCATION_ID = "00000000-0000-0000-0000-000000000005";
+    public static final String FULLY_POPULATED_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000001";
+    public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000002";
+    public static final String MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000003";
+    public static final String NEW_MERCHANT_WITH_LESS_THAN_52_WEEKS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000004";
+    public static final String MERCHANT_TOO_NEW_TO_HAVE_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000005";
 
     /* ApiClient Configuration */
 
@@ -56,17 +58,17 @@ public class ApiExamples {
     }
 
     /*
-    * Matches Use Cases
-    *
-    * Note: We are not exercising the standard validation logic as specified in the OpenAPI specification for this
-    * endpoint - i.e. required parameters not being provided, following the expected min and max length of the various
-    * string parameters and enforcing regex for allowed characters
-    * */
+     * Matches Use Cases
+     *
+     * Note: We are not exercising the standard validation logic as specified in the OpenAPI specification for this
+     * endpoint - i.e. required parameters not being provided, following the expected min and max length of the various
+     * string parameters and enforcing regex for allowed characters
+     * */
 
     public static List<Match> getSingleMatch() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 SINGLE_MATCH_COMPANY_NAME,
-                EXAMPLE_STREET_ADDRESS,
+                SINGLE_MATCH_STREET_ADDRESS,
                 EXAMPLE_POSTAL_CODE,
                 EXAMPLE_CITY,
                 EXAMPLE_STATE_PROVINCE_CODE,
@@ -77,7 +79,7 @@ public class ApiExamples {
     public static List<Match> getMultipleMatches() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 MULTIPLE_MATCHES_COMPANY_NAME,
-                EXAMPLE_STREET_ADDRESS,
+                MULTIPLE_MATCHES_STREET_ADDRESS,
                 EXAMPLE_POSTAL_CODE,
                 EXAMPLE_CITY,
                 EXAMPLE_STATE_PROVINCE_CODE,
@@ -88,7 +90,7 @@ public class ApiExamples {
     public static List<Match> throwsNoMatchFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 NO_MATCH_COMPANY_NAME,
-                EXAMPLE_STREET_ADDRESS,
+                NO_MATCH_STREET_ADDRESS,
                 EXAMPLE_POSTAL_CODE,
                 EXAMPLE_CITY,
                 EXAMPLE_STATE_PROVINCE_CODE,
@@ -99,7 +101,7 @@ public class ApiExamples {
     public static List<Match> throwsInvalidPostalCodeApiException() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 SINGLE_MATCH_COMPANY_NAME,
-                EXAMPLE_STREET_ADDRESS,
+                SINGLE_MATCH_STREET_ADDRESS,
                 "105776", // For USA, this must be ##### or #####-####
                 EXAMPLE_CITY,
                 EXAMPLE_STATE_PROVINCE_CODE,
@@ -110,7 +112,7 @@ public class ApiExamples {
     public static List<Match> throwsGetInvalidStateProvinceCodeApiException() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 SINGLE_MATCH_COMPANY_NAME,
-                EXAMPLE_STREET_ADDRESS,
+                SINGLE_MATCH_STREET_ADDRESS,
                 EXAMPLE_POSTAL_CODE,
                 EXAMPLE_CITY,
                 "NA", // For USA, this must be one of the 50 valid 2-character state codes
@@ -121,7 +123,7 @@ public class ApiExamples {
     public static List<Match> throwsInvalidCountryCodeApiException() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 SINGLE_MATCH_COMPANY_NAME,
-                EXAMPLE_STREET_ADDRESS,
+                SINGLE_MATCH_STREET_ADDRESS,
                 EXAMPLE_POSTAL_CODE,
                 EXAMPLE_CITY,
                 EXAMPLE_STATE_PROVINCE_CODE,
@@ -145,37 +147,44 @@ public class ApiExamples {
         );
     }
 
-    public static MetricsPerLocation getPartiallyPopulatedMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation getMerchantWithLowTransactionVolumeMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(PARTIALLY_POPULATED_METRICS_LOCATION_ID),
+                UUID.fromString(MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID),
                 true
         );
     }
 
-    public static MetricsPerLocation getPartialYearMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(PARTIAL_YEAR_METRICS_LOCATION_ID),
+                UUID.fromString(MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID),
+                true
+        );
+    }
+
+    public static MetricsPerLocation getMerchantWithLessThan52WeeksMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(NEW_MERCHANT_WITH_LESS_THAN_52_WEEKS_LOCATION_ID),
                 true
         );
     }
 
     public static MetricsPerLocation throwsMetricsNotFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(NEWLY_ACCEPTING_LOCATION_ID),
+                UUID.fromString(MERCHANT_TOO_NEW_TO_HAVE_METRICS_LOCATION_ID),
                 true
         );
     }
 
     public static MetricsPerLocation throwsLocationNotFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(NOT_FOUND_LOCATION_ID),
+                UUID.fromString("a1b2c3d4-0000-1234-abcd-000000000006"),
                 true
         );
     }
 
     public static MetricsPerLocation throwsConsentNotProvided() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(FULLY_POPULATED_METRICS_LOCATION_ID),
+                UUID.fromString("a1b2c3d4-0000-1234-abcd-000000000007"),
                 false
         );
     }

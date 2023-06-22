@@ -31,12 +31,13 @@ public class MetricsApiTest {
     @Test
     public void getMetricsTest() throws ApiException, UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
         Assert.assertNotNull(ApiExamples.getFullyPopulatedMetrics());
-        Assert.assertNotNull(ApiExamples.getPartiallyPopulatedMetrics());
-        Assert.assertNotNull(ApiExamples.getPartialYearMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithLessThan52WeeksMetrics());
 
-        Assert.assertThrows(ApiException.class, () -> ApiExamples.throwsMetricsNotFound());
-        Assert.assertThrows(ApiException.class, () -> ApiExamples.throwsLocationNotFound());
-        Assert.assertThrows(ApiException.class, () -> ApiExamples.throwsConsentNotProvided());
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsMetricsNotFound);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsLocationNotFound);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsConsentNotProvided);
     }
     
 }
