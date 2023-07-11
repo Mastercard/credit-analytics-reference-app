@@ -405,14 +405,14 @@ components:
           type: string
           description: The Mastercard-defined name of the industry of the merchant.
           example: Family Apparel
-        dateEstablished:
+        firstSeenTxnDate:
           type: string
           format: date
           description: >-
             The date of the first Mastercard transaction processed for this
             merchant.
           example: '2015-01-01'
-        lastSeenDate:
+        lastSeenTxnDate:
           type: string
           format: date
           description: >-
@@ -463,10 +463,6 @@ components:
           type: integer
           description: The calendar year for which this metric was calculated
           example: 2022
-        week:
-          type: integer
-          description: The calendar week for which this metric was calculated.
-          example: 1
         metrics:
           type: array
           description: Name-value pairs for all requested metrics for this time period
