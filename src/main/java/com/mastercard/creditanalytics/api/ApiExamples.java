@@ -39,6 +39,8 @@ public class ApiExamples {
     public static final String MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000003";
     public static final String NEW_MERCHANT_WITH_LESS_THAN_52_WEEKS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000004";
     public static final String MERCHANT_TOO_NEW_TO_HAVE_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000005";
+    public static final String MERCHANT_NOT_FOUND_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000006";
+    public static final String CONSENT_NOT_PROVIDED_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000007";
 
     /* ApiClient Configuration */
 
