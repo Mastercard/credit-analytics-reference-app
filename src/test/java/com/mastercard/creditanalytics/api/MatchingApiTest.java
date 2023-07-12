@@ -33,9 +33,9 @@ public class MatchingApiTest {
         Assert.assertNotNull(ApiExamples.getMultipleMatches());
 
         // Matches error examples
-        Assert.assertThrows(ApiException.class, () -> ApiExamples.throwsNoMatchFound());
-        Assert.assertThrows(ApiException.class, () -> ApiExamples.throwsInvalidPostalCodeApiException());
-        Assert.assertThrows(ApiException.class, () -> ApiExamples.throwsGetInvalidStateProvinceCodeApiException());
-        Assert.assertThrows(ApiException.class, () -> ApiExamples.throwsInvalidCountryCodeApiException());
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFound);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidPostalCodeApiException);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsGetInvalidStateProvinceCodeApiException);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidCountryCodeApiException);
     }
 }

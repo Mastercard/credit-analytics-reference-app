@@ -27,8 +27,9 @@ public class CreditAnalyticsMain {
 
         // Metrics examples
         log.log(Level.INFO, "FullyPopulatedMetrics: {0}", ApiExamples.getFullyPopulatedMetrics());
-        log.log(Level.INFO, "PartiallyPopulatedMetrics: {0}", ApiExamples.getPartiallyPopulatedMetrics());
-        log.log(Level.INFO, "PartialYearMetrics: {0}", ApiExamples.getPartialYearMetrics());
+        log.log(Level.INFO, "LowTransactionVolumeMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeMetrics());
+        log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics());
+        log.log(Level.INFO, "LessThan52WeeksMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMetrics());
 
         // Metrics error examples
         try { ApiExamples.throwsMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
