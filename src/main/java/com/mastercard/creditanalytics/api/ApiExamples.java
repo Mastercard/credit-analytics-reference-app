@@ -177,7 +177,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation throwsLocationNotFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString("a1b2c3d4-0000-1234-abcd-000000000006"),
+                UUID.fromString(MERCHANT_NOT_FOUND_LOCATION_ID),
                 true
         );
     }
