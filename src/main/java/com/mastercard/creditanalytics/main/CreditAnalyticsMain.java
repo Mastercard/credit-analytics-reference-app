@@ -39,6 +39,18 @@ public class CreditAnalyticsMain {
         // Example business use case calling matches, then metrics
         // This will return the same metrics as ApiExamples.GetFullyPopulatedMetrics()
         log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getMetricsUsingMatchResults());
+
+        //Benchmarks metrics examples
+        log.log(Level.INFO, "FullyPopulatedBenchmarksMetrics: {0}", ApiExamples.getFullyPopulatedBenchmarksMetrics());
+
+        //Benchmarks metrics error examples
+        try { ApiExamples.throwsBenchmarksMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsBenchmarksMetricsLocationNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsBenchmarksMetricsConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
+
+        // Example business use case calling matches, then benchmarks metrics
+        // This will return the same metrics as ApiExamples.getFullyPopulatedBenchmarksMetrics()
+        log.log(Level.INFO, "BenchmarksMetricsFromMatch: {0}", ApiExamples.getFullyPopulatedBenchmarksMetrics());
     }
 }
 

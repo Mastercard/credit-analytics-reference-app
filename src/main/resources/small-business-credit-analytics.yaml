@@ -61,6 +61,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/locationIdParameter'
         - $ref: '#/components/parameters/hasConsentParameter'
+        - $ref: '#/components/parameters/metricsTypeParameter'
       responses:
         '200':
           $ref: '#/components/responses/MetricsResponse'
@@ -258,6 +259,15 @@ components:
       example: true
       schema:
         type: boolean
+    metricsTypeParameter:
+      name: metrics_type
+      in: query
+      description: >-
+        Metrics Type parameter indicates type of metrics to be returned.
+        Optional parameter with default value as 'retail_sales_analytics'. Valid values are 'retail_sales_analytics' or 'retail_sales_benchmarks'.
+      example: RSA
+      schema:
+        type: string
   responses:
     MatchesResponse:
       description: Operation was successful.
