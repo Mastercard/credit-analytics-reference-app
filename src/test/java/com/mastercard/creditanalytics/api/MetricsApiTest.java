@@ -41,6 +41,9 @@ public class MetricsApiTest {
 
         //Benchmarks metrics test cases
         Assert.assertNotNull(ApiExamples.getFullyPopulatedBenchmarksMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeBenchmarksMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithNoTransactionBenchmarksMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithNoNoDataAvailableBenchmarksMetrics());
 
         Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsNotFound);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsLocationNotFound);
