@@ -41,10 +41,10 @@ public class ApiExamples {
     public static final String MERCHANT_TOO_NEW_TO_HAVE_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000005";
     public static final String MERCHANT_NOT_FOUND_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000006";
     public static final String CONSENT_NOT_PROVIDED_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000007";
-    public static final String FULLY_POPULATED_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000008";
-    public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000009";
-    public static final String MERCHANT_WITH_NO_TRANSACTION_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000010";
-    public static final String MERCHANT_WITH_NO_DATA_AVAILABLE_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000011";
+    public static final String FULLY_POPULATED_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000001";
+    public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000002";
+    public static final String MERCHANT_WITH_NO_TRANSACTION_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000003";
+    public static final String MERCHANT_WITH_NO_DATA_AVAILABLE_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000004";
 
     public static final String RSA_METRICS_QUERY_PARAM = "retail_sales_analytics";
     public static final String BENCHMARKS_METRICS_QUERY_PARAM = "retail_sales_benchmarks";
@@ -151,7 +151,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation getFullyPopulatedMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString("a1b2c3d4-0000-1234-abcd-000000000002"),
+                UUID.fromString(FULLY_POPULATED_METRICS_LOCATION_ID),
                 true,
                 RSA_METRICS_QUERY_PARAM
         );

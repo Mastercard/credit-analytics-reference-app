@@ -30,6 +30,7 @@ public class MatchesAndMetricsApiTest {
     @Test
     public void getMetricsFromMatchesTest() throws ApiException, UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
         Assert.assertNotNull(ApiExamples.getMetricsUsingMatchResults());
+        Assert.assertNotNull(ApiExamples.getBenchmarksMetricsUsingMatchResults());
     }
     
 }

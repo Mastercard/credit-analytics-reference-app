@@ -50,6 +50,10 @@ public class CreditAnalyticsMain {
         try { ApiExamples.throwsBenchmarksMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsBenchmarksMetricsLocationNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsBenchmarksMetricsConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
+
+        // Example business use case calling matches, then benchmarks metrics
+        // This will return the same metrics as ApiExamples.getFullyPopulatedBenchmarksMetrics()
+        log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getBenchmarksMetricsUsingMatchResults());
     }
 }
 
