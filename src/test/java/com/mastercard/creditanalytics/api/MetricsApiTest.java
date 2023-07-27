@@ -38,6 +38,16 @@ public class MetricsApiTest {
         Assert.assertThrows(ApiException.class, ApiExamples::throwsMetricsNotFound);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsLocationNotFound);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsConsentNotProvided);
+
+        //Benchmarks metrics test cases
+        Assert.assertNotNull(ApiExamples.getFullyPopulatedBenchmarksMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeBenchmarksMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithNoTransactionBenchmarksMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithNoNoDataAvailableBenchmarksMetrics());
+
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsNotFound);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsLocationNotFound);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsConsentNotProvided);
     }
     
 }

@@ -39,6 +39,21 @@ public class CreditAnalyticsMain {
         // Example business use case calling matches, then metrics
         // This will return the same metrics as ApiExamples.GetFullyPopulatedMetrics()
         log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getMetricsUsingMatchResults());
+
+        //Benchmarks metrics examples
+        log.log(Level.INFO, "FullyPopulatedBenchmarksMetrics: {0}", ApiExamples.getFullyPopulatedBenchmarksMetrics());
+        log.log(Level.INFO, "LowTransactionVolumeBenchmarksMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeBenchmarksMetrics());
+        log.log(Level.INFO, "NoTransactionBenchmarksMetrics: {0}", ApiExamples.getMerchantWithNoTransactionBenchmarksMetrics());
+        log.log(Level.INFO, "NoNoDataAvailableBenchmarksMetrics: {0}", ApiExamples.getMerchantWithNoNoDataAvailableBenchmarksMetrics());
+
+        //Benchmarks metrics error examples
+        try { ApiExamples.throwsBenchmarksMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsBenchmarksMetricsLocationNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsBenchmarksMetricsConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
+
+        // Example business use case calling matches, then benchmarks metrics
+        // This will return the same metrics as ApiExamples.getFullyPopulatedBenchmarksMetrics()
+        log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getBenchmarksMetricsUsingMatchResults());
     }
 }
 
