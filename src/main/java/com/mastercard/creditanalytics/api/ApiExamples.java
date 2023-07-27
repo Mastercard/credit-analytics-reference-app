@@ -45,6 +45,9 @@ public class ApiExamples {
     public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000002";
     public static final String MERCHANT_WITH_NO_TRANSACTION_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000003";
     public static final String MERCHANT_WITH_NO_DATA_AVAILABLE_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000004";
+    public static final String MERCHANT_TOO_NEW_TO_HAVE_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000005";
+    public static final String MERCHANT_NOT_FOUND_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000006";
+    public static final String CONSENT_NOT_PROVIDED_BENCHMARKS_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000007";
 
     public static final String RSA_METRICS_QUERY_PARAM = "retail_sales_analytics";
     public static final String BENCHMARKS_METRICS_QUERY_PARAM = "retail_sales_benchmarks";
@@ -249,7 +252,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation throwsBenchmarksMetricsNotFound() throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(MERCHANT_TOO_NEW_TO_HAVE_METRICS_LOCATION_ID),
+                UUID.fromString(MERCHANT_TOO_NEW_TO_HAVE_BENCHMARKS_METRICS_LOCATION_ID),
                 true,
                 BENCHMARKS_METRICS_QUERY_PARAM
         );
@@ -257,7 +260,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation throwsBenchmarksMetricsConsentNotProvided() throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(CONSENT_NOT_PROVIDED_LOCATION_ID),
+                UUID.fromString(CONSENT_NOT_PROVIDED_BENCHMARKS_METRICS_LOCATION_ID),
                 false,
                 BENCHMARKS_METRICS_QUERY_PARAM
         );
@@ -265,7 +268,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation throwsBenchmarksMetricsLocationNotFound() throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(MERCHANT_NOT_FOUND_LOCATION_ID),
+                UUID.fromString(MERCHANT_NOT_FOUND_BENCHMARKS_METRICS_LOCATION_ID),
                 true,
                 BENCHMARKS_METRICS_QUERY_PARAM
         );
