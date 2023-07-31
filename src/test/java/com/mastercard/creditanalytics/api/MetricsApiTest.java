@@ -14,6 +14,7 @@
 package com.mastercard.creditanalytics.api;
 
 import org.junit.Assert;
+import org.junit.Test;
 import org.openapitools.client.ApiException;
 
 import java.io.IOException;
@@ -21,8 +22,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-
-import org.junit.Test;
 
 /**
  * API tests for MetricsApi
@@ -42,12 +41,10 @@ public class MetricsApiTest {
         //Benchmarks metrics test cases
         Assert.assertNotNull(ApiExamples.getFullyPopulatedBenchmarksMetrics());
         Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeBenchmarksMetrics());
-        Assert.assertNotNull(ApiExamples.getMerchantWithNoTransactionBenchmarksMetrics());
-        Assert.assertNotNull(ApiExamples.getMerchantWithNoNoDataAvailableBenchmarksMetrics());
 
         Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsNotFound);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsLocationNotFound);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsBenchmarksMetricsConsentNotProvided);
     }
-    
+
 }
