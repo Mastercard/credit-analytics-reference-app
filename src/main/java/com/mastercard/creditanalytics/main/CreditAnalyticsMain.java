@@ -43,8 +43,6 @@ public class CreditAnalyticsMain {
         //Benchmarks metrics examples
         log.log(Level.INFO, "FullyPopulatedBenchmarksMetrics: {0}", ApiExamples.getFullyPopulatedBenchmarksMetrics());
         log.log(Level.INFO, "LowTransactionVolumeBenchmarksMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeBenchmarksMetrics());
-        log.log(Level.INFO, "NoTransactionBenchmarksMetrics: {0}", ApiExamples.getMerchantWithNoTransactionBenchmarksMetrics());
-        log.log(Level.INFO, "NoNoDataAvailableBenchmarksMetrics: {0}", ApiExamples.getMerchantWithNoNoDataAvailableBenchmarksMetrics());
 
         //Benchmarks metrics error examples
         try { ApiExamples.throwsBenchmarksMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
