@@ -14,12 +14,18 @@ import java.util.logging.Logger;
 public class CreditAnalyticsMain {
     public static void main(String[] args) throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         Logger log = Logger.getLogger("CreditAnalyticsMain");
-        
-        // Matches examples
+
+        // Match by MID examples
+        log.log(Level.INFO,"MatchByMID: {0}", ApiExamples.getMatchByMID());
+
+        // Match by MID error examples
+        try{ ApiExamples.throwsInvalidIDType();} catch(Exception e){ log.info(e.getMessage()); }
+
+        // Matches by Name and Address examples
         log.log(Level.INFO, "SingleMatch: {0}", ApiExamples.getSingleMatch());
         log.log(Level.INFO, "MultipleMatches: {0}", ApiExamples.getMultipleMatches());
 
-        // Matches error examples
+        // Matches by Name and Address error examples
         try { ApiExamples.throwsNoMatchFound(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsInvalidPostalCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsGetInvalidStateProvinceCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
