@@ -109,7 +109,7 @@ public class ApiExamples {
                 null,
                 null,
                 null,
-                null,
+                USA_COUNTRY_CODE,
                 EXAMPLE_ID_TYPE,
                 EXAMPLE_ID_VALUE
         );
