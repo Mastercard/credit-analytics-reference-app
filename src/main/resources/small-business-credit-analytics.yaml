@@ -35,7 +35,7 @@ paths:
         - $ref: '#/components/parameters/streetAddressParameter'
         - $ref: '#/components/parameters/postalCodeParameter'
         - $ref: '#/components/parameters/cityParameter'
-        - $ref: '#/components/parameters/stateProvinceCodeParameter'
+        - $ref: '#/components/parameters/stateProvinceRegionParameter'
         - $ref: '#/components/parameters/countryCodeParameter'
         - $ref: '#/components/parameters/idTypeParameter'
         - $ref: '#/components/parameters/idValueParameter'
@@ -169,17 +169,6 @@ components:
               Details: >-
                 The specified location could not be found in Mastercard's
                 merchant metrics database.
-    CountryCodeNotPermittedExample:
-      value:
-        Errors:
-          Error:
-            - Source: CreditAnalytics
-              ReasonCode: COUNTRY_NOT_PERMITTED
-              Description: >-
-                No permission to access merchant information for the requested country_code
-              Recoverable: false
-              Details: >-
-                Access to merchant data for this country is not permitted under your current agreement.
   parameters:
     companyNameParameter:
       name: company_name
@@ -213,8 +202,8 @@ components:
       example: CityVille
       schema:
         type: string
-    stateProvinceCodeParameter:
-      name: state_province_code
+    stateProvinceRegionParameter:
+      name: state_province_region
       in: query
       description: >-
         The state or province abbreviation in the merchant's address. Expected
@@ -232,8 +221,6 @@ components:
       example: MERCHANT_ID
       schema:
         type: string
-        enum:
-          - 'MERCHANT_ID'
     idValueParameter:
       name: id_value
       in: query
@@ -322,17 +309,6 @@ components:
           examples:
             UnauthorizedExample:
               $ref: '#/components/examples/UnauthorizedExample'
-    CountryCodeNotPermitted:
-      description: >-
-        You are not authorized to access the requested information. See the
-        response payload for more information.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorWrapper'
-          examples:
-            CountryCodeNotPermitted-Example:
-              $ref: '#/components/examples/CountryCodeNotPermittedExample'
     Forbidden:
       description: >-
         You are not authorized to access the requested information. See the

@@ -33,8 +33,11 @@ public class ApiExamples {
     public static final String EXAMPLE_CITY = "Purchase";
     public static final String EXAMPLE_STATE_PROVINCE_CODE = "NY";
     public static final String USA_COUNTRY_CODE = "USA";
-    public static final String EXAMPLE_ID_TYPE = "MERCHANT_ID";
-    public static final String EXAMPLE_ID_VALUE = "106241230D01";
+    public static final String EXAMPLE_ID_TYPE_MERCHANT_ID = "MERCHANT_ID";
+    public static final String SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D01";
+    public static final String MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D02";
+    public static final String EXAMPLE_INVALID_ID_TYPE = "MERCHANT_ID2";
+    public static final String NO_MATCH_ID_VALUE = "106241230D0122";
 
     public static final String FULLY_POPULATED_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000001";
     public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000002";
@@ -77,7 +80,32 @@ public class ApiExamples {
      * string parameters and enforcing regex for allowed characters
      * */
 
-    public static List<Match> getSingleMatch() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static List<Match> getSingleMatchByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                USA_COUNTRY_CODE,
+                EXAMPLE_ID_TYPE_MERCHANT_ID,
+                SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
+        );
+    }
+    public static List<Match> getMultipleMatchByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                USA_COUNTRY_CODE,
+                EXAMPLE_ID_TYPE_MERCHANT_ID,
+                MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
+        );
+    }
+
+    public static List<Match> getSingleMatchByNameAndAddress() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 SINGLE_MATCH_COMPANY_NAME,
                 SINGLE_MATCH_STREET_ADDRESS,
@@ -90,7 +118,7 @@ public class ApiExamples {
         );
     }
 
-    public static List<Match> getMultipleMatches() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static List<Match> getMultipleMatchesByNameAndAddress() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 MULTIPLE_MATCHES_COMPANY_NAME,
                 MULTIPLE_MATCHES_STREET_ADDRESS,
@@ -102,7 +130,8 @@ public class ApiExamples {
                 null
         );
     }
-    public static List<Match> getMatchByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+
+    public static List<Match> throwsInvalidIDType() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 null,
                 null,
@@ -110,11 +139,24 @@ public class ApiExamples {
                 null,
                 null,
                 USA_COUNTRY_CODE,
-                EXAMPLE_ID_TYPE,
-                EXAMPLE_ID_VALUE
+                EXAMPLE_INVALID_ID_TYPE ,
+                SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
         );
     }
-    public static List<Match> throwsNoMatchFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+
+    public static List<Match> throwsNoMatchFoundByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                USA_COUNTRY_CODE,
+                EXAMPLE_ID_TYPE_MERCHANT_ID,
+                NO_MATCH_ID_VALUE
+        );
+    }
+    public static List<Match> throwsNoMatchFoundByNameAndAddress() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 NO_MATCH_COMPANY_NAME,
                 NO_MATCH_STREET_ADDRESS,
@@ -163,19 +205,6 @@ public class ApiExamples {
                 "AUS",// this must be USA_COUNTRY_CODE for the current release of the API
                 null,
                 null
-        );
-    }
-
-    public static List<Match> throwsInvalidIDType() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
-        return new MatchingApi(getApiClient()).getMatches(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                "",
-                EXAMPLE_ID_VALUE
         );
     }
 
@@ -248,7 +277,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation getMetricsUsingMatchResults() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                getSingleMatch().get(0).getLocationId(),
+                getSingleMatchByNameAndAddress().get(0).getLocationId(),
                 true,
                 RSA_METRICS_QUERY_PARAM
         );
@@ -296,7 +325,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation getBenchmarksMetricsUsingMatchResults() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                getSingleMatch().get(0).getLocationId(),
+                getSingleMatchByNameAndAddress().get(0).getLocationId(),
                 true,
                 BENCHMARKS_METRICS_QUERY_PARAM
         );

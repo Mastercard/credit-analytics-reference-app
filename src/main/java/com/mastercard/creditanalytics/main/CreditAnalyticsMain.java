@@ -16,17 +16,19 @@ public class CreditAnalyticsMain {
         Logger log = Logger.getLogger("CreditAnalyticsMain");
 
         // Match by MID examples
-        log.log(Level.INFO,"MatchByMID: {0}", ApiExamples.getMatchByMID());
+        log.log(Level.INFO,"SingleMatchByMID: {0}", ApiExamples.getSingleMatchByMID());
+        log.log(Level.INFO,"MultipleMatchesByMID: {0}", ApiExamples.getMultipleMatchByMID());
 
         // Match by MID error examples
-        try{ ApiExamples.throwsInvalidIDType();} catch(Exception e){ log.info(e.getMessage()); }
+        try{ ApiExamples.throwsInvalidIDType(); } catch(Exception e){ log.info(e.getMessage()); }
+        try{ ApiExamples.throwsNoMatchFoundByMID(); } catch (Exception e){ log.info(e.getMessage()); }
 
         // Matches by Name and Address examples
-        log.log(Level.INFO, "SingleMatch: {0}", ApiExamples.getSingleMatch());
-        log.log(Level.INFO, "MultipleMatches: {0}", ApiExamples.getMultipleMatches());
+        log.log(Level.INFO, "SingleMatchByNameAndAddress: {0}", ApiExamples.getSingleMatchByNameAndAddress());
+        log.log(Level.INFO, "MultipleMatchesByNameAndAddress: {0}", ApiExamples.getMultipleMatchesByNameAndAddress());
 
         // Matches by Name and Address error examples
-        try { ApiExamples.throwsNoMatchFound(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsNoMatchFoundByNameAndAddress(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsInvalidPostalCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsGetInvalidStateProvinceCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsInvalidCountryCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
