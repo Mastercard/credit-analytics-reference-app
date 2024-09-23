@@ -27,15 +27,19 @@ import java.security.cert.CertificateException;
  * API tests for MatchingApi
  */
 public class MatchingApiTest {
-    @Test
+   @Test
     public void getMatchesTest() throws ApiException, UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
-        Assert.assertNotNull(ApiExamples.getSingleMatch());
-        Assert.assertNotNull(ApiExamples.getMultipleMatches());
+        Assert.assertNotNull(ApiExamples.getSingleMatchByNameAndAddress());
+        Assert.assertNotNull(ApiExamples.getMultipleMatchesByNameAndAddress());
+        Assert.assertNotNull(ApiExamples.getSingleMatchByMID());
+        Assert.assertNotNull(ApiExamples.getMultipleMatchByMID());
 
         // Matches error examples
-        Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFound);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFoundByNameAndAddress);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidPostalCodeApiException);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsGetInvalidStateProvinceCodeApiException);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidCountryCodeApiException);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidIDType);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFoundByMID);
     }
 }
