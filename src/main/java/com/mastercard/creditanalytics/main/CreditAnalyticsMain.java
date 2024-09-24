@@ -17,11 +17,12 @@ public class CreditAnalyticsMain {
 
         // Match by MID examples
         log.log(Level.INFO,"SingleMatchByMID: {0}", ApiExamples.getSingleMatchByMID());
-        log.log(Level.INFO,"MultipleMatchesByMID: {0}", ApiExamples.getMultipleMatchByMID());
+        log.log(Level.INFO,"MultipleMatchesByMID: {0}", ApiExamples.getMultipleMatchesByMID());
 
         // Match by MID error examples
         try{ ApiExamples.throwsInvalidIDType(); } catch(Exception e){ log.info(e.getMessage()); }
         try{ ApiExamples.throwsNoMatchFoundByMID(); } catch (Exception e){ log.info(e.getMessage()); }
+        try{ ApiExamples.throwsInvalidIDValue(); } catch(Exception e){ log.info(e.getMessage()); }
 
         // Matches by Name and Address examples
         log.log(Level.INFO, "SingleMatchByNameAndAddress: {0}", ApiExamples.getSingleMatchByNameAndAddress());

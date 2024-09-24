@@ -37,6 +37,7 @@ public class ApiExamples {
     public static final String SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D01";
     public static final String MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D02";
     public static final String EXAMPLE_INVALID_ID_TYPE = "MERCHANT_ID2";
+    public static final String EXAMPLE_INVALID_ID_VALUE = "ABCDEF";
     public static final String NO_MATCH_ID_VALUE = "106241230D0122";
 
     public static final String FULLY_POPULATED_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000001";
@@ -92,7 +93,7 @@ public class ApiExamples {
                 SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
         );
     }
-    public static List<Match> getMultipleMatchByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static List<Match> getMultipleMatchesByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 null,
                 null,
@@ -141,6 +142,19 @@ public class ApiExamples {
                 USA_COUNTRY_CODE,
                 EXAMPLE_INVALID_ID_TYPE ,
                 SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
+        );
+    }
+
+    public static List<Match> throwsInvalidIDValue() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                USA_COUNTRY_CODE,
+                EXAMPLE_INVALID_ID_TYPE ,
+                EXAMPLE_INVALID_ID_VALUE
         );
     }
 
@@ -202,7 +216,7 @@ public class ApiExamples {
                 EXAMPLE_POSTAL_CODE,
                 EXAMPLE_CITY,
                 EXAMPLE_STATE_PROVINCE_CODE,
-                "AUS",// this must be USA_COUNTRY_CODE for the current release of the API
+                "AUS",// this must be one of the ISO standard country codes supported by SBCA application
                 null,
                 null
         );

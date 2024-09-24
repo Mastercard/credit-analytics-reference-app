@@ -32,14 +32,15 @@ public class MatchingApiTest {
         Assert.assertNotNull(ApiExamples.getSingleMatchByNameAndAddress());
         Assert.assertNotNull(ApiExamples.getMultipleMatchesByNameAndAddress());
         Assert.assertNotNull(ApiExamples.getSingleMatchByMID());
-        Assert.assertNotNull(ApiExamples.getMultipleMatchByMID());
+        Assert.assertNotNull(ApiExamples.getMultipleMatchesByMID());
 
         // Matches error examples
         Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFoundByNameAndAddress);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidPostalCodeApiException);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsGetInvalidStateProvinceCodeApiException);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidCountryCodeApiException);
-        Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidIDType);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFoundByMID);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidIDType);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidIDValue);
     }
 }
