@@ -35,8 +35,10 @@ paths:
         - $ref: '#/components/parameters/streetAddressParameter'
         - $ref: '#/components/parameters/postalCodeParameter'
         - $ref: '#/components/parameters/cityParameter'
-        - $ref: '#/components/parameters/stateProvinceCodeParameter'
+        - $ref: '#/components/parameters/stateProvinceRegionParameter'
         - $ref: '#/components/parameters/countryCodeParameter'
+        - $ref: '#/components/parameters/idTypeParameter'
+        - $ref: '#/components/parameters/idValueParameter'
       responses:
         '200':
           $ref: '#/components/responses/MatchesResponse'
@@ -172,22 +174,16 @@ components:
       name: company_name
       in: query
       description: Name of merchant (DBA name).
-      example: Fancy Restaurant
-      required: true
+      example: Artisan Emporium
       schema:
         type: string
-        minLength: 1
-        maxLength: 250
     streetAddressParameter:
       name: street_address
       in: query
       description: The full street address of the merchant.
-      example: '123 Main Street, Ste. 200'
-      required: true
+      example: '2000 Purchase St'
       schema:
         type: string
-        minLength: 1
-        maxLength: 250
     postalCodeParameter:
       name: postal_code
       in: query
@@ -195,37 +191,42 @@ components:
         The postal code in the merchant's address. Expected conventions will be
         determined based on country_code - e.g. for USA a 5-digit or 9-digit
         postal code is expected.
-      example: 12345
-      required: true
+      example: 10577
       schema:
         type: string
-        pattern: '^[0-9A-Z- ]+'
-        minLength: 1
-        maxLength: 100
     cityParameter:
       name: city
       in: query
       description: The city name in the merchant's address.
-      example: CityVille
-      required: true
+      example: Purchase
       schema:
         type: string
-        minLength: 1
-        maxLength: 100
-    stateProvinceCodeParameter:
-      name: state_province_code
+    stateProvinceRegionParameter:
+      name: state_province_region
       in: query
       description: >-
         The state or province abbreviation in the merchant's address. Expected
         conventions will be determined based on country_code - e.g. for USA a
         2-letter abbreviation is expected.
       example: NY
-      required: true
       schema:
         type: string
-        pattern: '^[0-9A-Z]+'
-        minLength: 1
-        maxLength: 3
+    idTypeParameter:
+      name: id_type
+      in: query
+      description: >-
+        User input for ID bases searching
+      example: MERCHANT_ID
+      schema:
+        type: string
+    idValueParameter:
+      name: id_value
+      in: query
+      description: >-
+        Value of the identifier being used for matching.
+      example: 106241230D01
+      schema:
+        type: string
     countryCodeParameter:
       name: country_code
       in: query
@@ -234,12 +235,8 @@ components:
         follow https://www.iso.org/iso-3166-country-codes.html, but only
         currently-supported countries will be accepted.
       example: USA
-      required: true
       schema:
         type: string
-        pattern: '^[A-Z]+'
-        minLength: 3
-        maxLength: 3
     locationIdParameter:
       name: location_id
       in: path

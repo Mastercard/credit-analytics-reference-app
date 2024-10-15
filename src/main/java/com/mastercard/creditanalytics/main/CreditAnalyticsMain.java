@@ -14,13 +14,22 @@ import java.util.logging.Logger;
 public class CreditAnalyticsMain {
     public static void main(String[] args) throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         Logger log = Logger.getLogger("CreditAnalyticsMain");
-        
-        // Matches examples
-        log.log(Level.INFO, "SingleMatch: {0}", ApiExamples.getSingleMatch());
-        log.log(Level.INFO, "MultipleMatches: {0}", ApiExamples.getMultipleMatches());
 
-        // Matches error examples
-        try { ApiExamples.throwsNoMatchFound(); } catch (Exception e) { log.info(e.getMessage()); }
+        // Match by MID examples
+        log.log(Level.INFO,"SingleMatchByMID: {0}", ApiExamples.getSingleMatchByMID());
+        log.log(Level.INFO,"MultipleMatchesByMID: {0}", ApiExamples.getMultipleMatchesByMID());
+
+        // Match by MID error examples
+        try{ ApiExamples.throwsInvalidIDType(); } catch(Exception e){ log.info(e.getMessage()); }
+        try{ ApiExamples.throwsNoMatchFoundByMID(); } catch (Exception e){ log.info(e.getMessage()); }
+        try{ ApiExamples.throwsInvalidIDValue(); } catch(Exception e){ log.info(e.getMessage()); }
+
+        // Matches by Name and Address examples
+        log.log(Level.INFO, "SingleMatchByNameAndAddress: {0}", ApiExamples.getSingleMatchByNameAndAddress());
+        log.log(Level.INFO, "MultipleMatchesByNameAndAddress: {0}", ApiExamples.getMultipleMatchesByNameAndAddress());
+
+        // Matches by Name and Address error examples
+        try { ApiExamples.throwsNoMatchFoundByNameAndAddress(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsInvalidPostalCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsGetInvalidStateProvinceCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsInvalidCountryCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
