@@ -39,12 +39,13 @@ public class CreditAnalyticsMain {
         log.log(Level.INFO, "LowTransactionVolumeMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeMetrics());
         log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics());
         log.log(Level.INFO, "LessThan52WeeksMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMetrics());
+        log.log(Level.INFO, "FullyPopulatedMetrics for monthly: {0}", ApiExamples.getFullyPopulatedMetricsForMonthly());
 
         // Metrics error examples
         try { ApiExamples.throwsMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsLocationNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
-
+        try { ApiExamples.throwsMetricFrequencyNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
         // Example business use case calling matches, then metrics
         // This will return the same metrics as ApiExamples.GetFullyPopulatedMetrics()
         log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getMetricsUsingMatchResults());

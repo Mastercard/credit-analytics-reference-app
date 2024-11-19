@@ -55,7 +55,8 @@ public class ApiExamples {
 
     public static final String RSA_METRICS_QUERY_PARAM = "retail_sales_analytics";
     public static final String BENCHMARKS_METRICS_QUERY_PARAM = "retail_sales_benchmarks";
-
+    private static final String MONTHLY = "Monthly";
+    private static final String WEEKLY = "Weekly";
     /* ApiClient Configuration */
 
     private static org.openapitools.client.ApiClient ApiClient;
@@ -235,7 +236,9 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(FULLY_POPULATED_METRICS_LOCATION_ID),
                 true,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
+
         );
     }
 
@@ -243,7 +246,9 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID),
                 true,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
+
         );
     }
 
@@ -251,6 +256,7 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID),
                 true,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
@@ -259,6 +265,7 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(NEW_MERCHANT_WITH_LESS_THAN_52_WEEKS_LOCATION_ID),
                 true,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
@@ -267,14 +274,16 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_TOO_NEW_TO_HAVE_METRICS_LOCATION_ID),
                 true,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
 
     public static MetricsPerLocation throwsLocationNotFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                UUID.fromString(MERCHANT_NOT_FOUND_LOCATION_ID),
+      null         ,
                 true,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
@@ -282,7 +291,8 @@ public class ApiExamples {
     public static MetricsPerLocation throwsConsentNotProvided() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(CONSENT_NOT_PROVIDED_LOCATION_ID),
-                false,
+                null,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
@@ -293,6 +303,7 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 getSingleMatchByNameAndAddress().get(0).getLocationId(),
                 true,
+                WEEKLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
@@ -301,15 +312,18 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(FULLY_POPULATED_BENCHMARKS_METRICS_LOCATION_ID),
                 true,
+                "monthly",
                 BENCHMARKS_METRICS_QUERY_PARAM
+
         );
     }
-
     public static MetricsPerLocation getMerchantWithLowTransactionVolumeBenchmarksMetrics() throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_WITH_LOW_TRANSACTION_VOLUME_BENCHMARKS_METRICS_LOCATION_ID),
                 true,
+                MONTHLY,
                 BENCHMARKS_METRICS_QUERY_PARAM
+
         );
     }
 
@@ -317,7 +331,9 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_TOO_NEW_TO_HAVE_BENCHMARKS_METRICS_LOCATION_ID),
                 true,
+                MONTHLY,
                 BENCHMARKS_METRICS_QUERY_PARAM
+
         );
     }
 
@@ -325,7 +341,9 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(CONSENT_NOT_PROVIDED_BENCHMARKS_METRICS_LOCATION_ID),
                 false,
+                MONTHLY,
                 BENCHMARKS_METRICS_QUERY_PARAM
+
         );
     }
 
@@ -333,7 +351,9 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_NOT_FOUND_BENCHMARKS_METRICS_LOCATION_ID),
                 true,
+                MONTHLY,
                 BENCHMARKS_METRICS_QUERY_PARAM
+
         );
     }
 
@@ -341,7 +361,26 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 getSingleMatchByNameAndAddress().get(0).getLocationId(),
                 true,
+                MONTHLY,
                 BENCHMARKS_METRICS_QUERY_PARAM
+
+        );
+    }
+    public static MetricsPerLocation getFullyPopulatedMetricsForMonthly() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(FULLY_POPULATED_METRICS_LOCATION_ID),
+                true,
+                MONTHLY,
+                RSA_METRICS_QUERY_PARAM
+
+        );
+    }
+    public static MetricsPerLocation throwsMetricFrequencyNotFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(FULLY_POPULATED_METRICS_LOCATION_ID),
+                true,
+                null,
+                RSA_METRICS_QUERY_PARAM
         );
     }
 }
