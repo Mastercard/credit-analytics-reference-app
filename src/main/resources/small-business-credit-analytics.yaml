@@ -487,14 +487,6 @@ components:
           type: integer
           description: The calendar year for which this metric was calculated
           example: 2022
-        month:
-          type: integer
-          description: The calendar month for which this metric was calculated
-          example: 12
-        week:
-          type: integer
-          description: The calendar week for which this metric was calculated
-          example: 45
         metrics:
           type: array
           description: Name-value pairs for all requested metrics for this time period

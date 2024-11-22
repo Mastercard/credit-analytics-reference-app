@@ -232,7 +232,7 @@ public class ApiExamples {
      * validation logic will trigger.
      * */
 
-    public static MetricsPerLocation getFullyPopulatedMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation getFullyPopulatedWeeklyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(FULLY_POPULATED_METRICS_LOCATION_ID),
                 true,
@@ -281,7 +281,7 @@ public class ApiExamples {
 
     public static MetricsPerLocation throwsLocationNotFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-      null         ,
+                null         ,
                 true,
                 WEEKLY,
                 RSA_METRICS_QUERY_PARAM
@@ -312,7 +312,7 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(FULLY_POPULATED_BENCHMARKS_METRICS_LOCATION_ID),
                 true,
-                "monthly",
+                MONTHLY,
                 BENCHMARKS_METRICS_QUERY_PARAM
 
         );
@@ -366,7 +366,7 @@ public class ApiExamples {
 
         );
     }
-    public static MetricsPerLocation getFullyPopulatedMetricsForMonthly() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation getFullyPopulateMonthlyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(FULLY_POPULATED_METRICS_LOCATION_ID),
                 true,
