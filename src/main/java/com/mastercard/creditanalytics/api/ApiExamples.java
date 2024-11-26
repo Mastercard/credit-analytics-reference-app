@@ -242,7 +242,7 @@ public class ApiExamples {
         );
     }
 
-    public static MetricsPerLocation getMerchantWithLowTransactionVolumeMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation getMerchantWithLowTransactionVolumeWeeklyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID),
                 true,
@@ -251,8 +251,25 @@ public class ApiExamples {
 
         );
     }
+    public static MetricsPerLocation getMerchantWithLowTransactionVolumeMonthlyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID),
+                true,
+                MONTHLY,
+                RSA_METRICS_QUERY_PARAM
 
-    public static MetricsPerLocation getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        );
+    }
+
+    public static MetricsPerLocation getMerchantWithNoDataFromCurrentOrPreviousYearYoyWeeklyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID),
+                true,
+                WEEKLY,
+                RSA_METRICS_QUERY_PARAM
+        );
+    }
+    public static MetricsPerLocation getMerchantWithNoDataFromCurrentOrPreviousYearYoyMonthlyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID),
                 true,
@@ -261,11 +278,20 @@ public class ApiExamples {
         );
     }
 
+
     public static MetricsPerLocation getMerchantWithLessThan52WeeksMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(NEW_MERCHANT_WITH_LESS_THAN_52_WEEKS_LOCATION_ID),
                 true,
                 WEEKLY,
+                RSA_METRICS_QUERY_PARAM
+        );
+    }
+    public static MetricsPerLocation getMerchantWithLessThan52WeeksMonthlyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(NEW_MERCHANT_WITH_LESS_THAN_52_WEEKS_LOCATION_ID),
+                true,
+                MONTHLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
@@ -279,31 +305,55 @@ public class ApiExamples {
         );
     }
 
-    public static MetricsPerLocation throwsLocationNotFound() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation throwsLocationNotFoundForWeekly() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
-                null         ,
+                UUID.fromString(MERCHANT_NOT_FOUND_LOCATION_ID),
                 true,
                 WEEKLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
+    public static MetricsPerLocation throwsLocationNotFoundForMonthly() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(MERCHANT_NOT_FOUND_LOCATION_ID),
+                true,
+                MONTHLY,
+                RSA_METRICS_QUERY_PARAM
+        );
+    }
 
-    public static MetricsPerLocation throwsConsentNotProvided() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation throwsWeeklyConsentNotProvided() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(CONSENT_NOT_PROVIDED_LOCATION_ID),
-                null,
+                false,
                 WEEKLY,
+                RSA_METRICS_QUERY_PARAM
+        );
+    }
+    public static MetricsPerLocation throwsMonthlyConsentNotProvided() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                UUID.fromString(CONSENT_NOT_PROVIDED_LOCATION_ID),
+                false,
+                MONTHLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
 
     /* Full business flow use case: Matches + Metrics */
 
-    public static MetricsPerLocation getMetricsUsingMatchResults() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation getMetricsWeeklyUsingMatchResults() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 getSingleMatchByNameAndAddress().get(0).getLocationId(),
                 true,
                 WEEKLY,
+                RSA_METRICS_QUERY_PARAM
+        );
+    }
+    public static MetricsPerLocation getMetricsMonthlyUsingMatchResults() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MetricsApi(getApiClient()).getMetrics(
+                getSingleMatchByNameAndAddress().get(0).getLocationId(),
+                true,
+                MONTHLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }

@@ -35,20 +35,29 @@ public class CreditAnalyticsMain {
         try { ApiExamples.throwsInvalidCountryCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
 
         // Metrics examples
-        log.log(Level.INFO, "FullyPopulatedMetrics: {0}", ApiExamples.getFullyPopulatedMetrics());
-        log.log(Level.INFO, "LowTransactionVolumeMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeMetrics());
-        log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics());
-        log.log(Level.INFO, "LessThan52WeeksMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMetrics());
-        log.log(Level.INFO, "FullyPopulatedMetrics for monthly: {0}", ApiExamples.getFullyPopulatedMetricsForMonthly());
+        log.log(Level.INFO, "FullyPopulatedWeeklyMetrics: {0}", ApiExamples.getFullyPopulatedWeeklyMetrics());
+        log.log(Level.INFO, "LowTransactionVolumeWeeklyMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeWeeklyMetrics());
+        log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyWeeklyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyWeeklyMetrics());
+        log.log(Level.INFO, "LessThan52WeeksWeeklyMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMetrics());
+
+        //Monthly
+        log.log(Level.INFO, "LowTransactionVolumeMonthlyMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeMonthlyMetrics());
+        log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyMonthlyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMonthlyMetrics());
+        log.log(Level.INFO, "LessThan52WeeksMonthlyMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMonthlyMetrics());
+        log.log(Level.INFO, "FullyPopulatedMetrics for monthly: {0}", ApiExamples.getFullyPopulateMonthlyMetrics());
+
 
         // Metrics error examples
         try { ApiExamples.throwsMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
-        try { ApiExamples.throwsLocationNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
-        try { ApiExamples.throwsConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsLocationNotFoundForWeekly(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsLocationNotFoundForMonthly(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsWeeklyConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsMonthlyConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsMetricFrequencyNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
         // Example business use case calling matches, then metrics
         // This will return the same metrics as ApiExamples.GetFullyPopulatedMetrics()
-        log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getMetricsUsingMatchResults());
+        log.log(Level.INFO, "MetricsFromMatch for Monthly : {0}", ApiExamples.getMetricsMonthlyUsingMatchResults());
+        log.log(Level.INFO, "MetricsFromMatch for Weekly: {0}", ApiExamples.getMetricsWeeklyUsingMatchResults());
 
         //Benchmarks metrics examples
         log.log(Level.INFO, "FullyPopulatedBenchmarksMetrics: {0}", ApiExamples.getFullyPopulatedBenchmarksMetrics());
