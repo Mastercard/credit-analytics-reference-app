@@ -37,7 +37,7 @@ public class MetricsApiTest {
         Assert.assertNotNull(ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMonthlyMetrics());
         Assert.assertNotNull(ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyWeeklyMetrics());
         Assert.assertNotNull(ApiExamples.getMerchantWithLessThan52WeeksMetrics());
-        Assert.assertNotNull(ApiExamples.getMerchantWithLessThan52WeeksMonthlyMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithLessThan12MonthsMonthlyMetrics());
         Assert.assertThrows(ApiException.class, ApiExamples::throwsMetricsNotFound);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsLocationNotFoundForMonthly);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsLocationNotFoundForWeekly);

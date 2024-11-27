@@ -273,7 +273,7 @@ public class ApiExamples {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID),
                 true,
-                WEEKLY,
+                MONTHLY,
                 RSA_METRICS_QUERY_PARAM
         );
     }
@@ -287,7 +287,7 @@ public class ApiExamples {
                 RSA_METRICS_QUERY_PARAM
         );
     }
-    public static MetricsPerLocation getMerchantWithLessThan52WeeksMonthlyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static MetricsPerLocation getMerchantWithLessThan12MonthsMonthlyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MetricsApi(getApiClient()).getMetrics(
                 UUID.fromString(NEW_MERCHANT_WITH_LESS_THAN_52_WEEKS_LOCATION_ID),
                 true,

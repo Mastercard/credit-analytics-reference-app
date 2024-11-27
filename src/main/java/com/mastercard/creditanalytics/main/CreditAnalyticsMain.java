@@ -43,7 +43,7 @@ public class CreditAnalyticsMain {
         //Monthly
         log.log(Level.INFO, "LowTransactionVolumeMonthlyMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeMonthlyMetrics());
         log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyMonthlyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMonthlyMetrics());
-        log.log(Level.INFO, "LessThan52WeeksMonthlyMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMonthlyMetrics());
+        log.log(Level.INFO, "LessThan12MonthsMonthlyMetrics: {0}", ApiExamples.getMerchantWithLessThan12MonthsMonthlyMetrics());
         log.log(Level.INFO, "FullyPopulatedMetrics for monthly: {0}", ApiExamples.getFullyPopulateMonthlyMetrics());
 
 
