@@ -29,7 +29,8 @@ import java.security.cert.CertificateException;
 public class MatchesAndMetricsApiTest {
     @Test
     public void getMetricsFromMatchesTest() throws ApiException, UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
-        Assert.assertNotNull(ApiExamples.getMetricsUsingMatchResults());
+        Assert.assertNotNull(ApiExamples.getMetricsMonthlyUsingMatchResults());
+        Assert.assertNotNull(ApiExamples.getMetricsWeeklyUsingMatchResults());
         Assert.assertNotNull(ApiExamples.getBenchmarksMetricsUsingMatchResults());
     }
     

@@ -64,6 +64,7 @@ paths:
         - $ref: '#/components/parameters/locationIdParameter'
         - $ref: '#/components/parameters/hasConsentParameter'
         - $ref: '#/components/parameters/metricsTypeParameter'
+        - $ref: '#/components/parameters/metricsFrequencyParameter'
       responses:
         '200':
           $ref: '#/components/responses/MetricsResponse'
@@ -265,6 +266,16 @@ components:
       example: RSA
       schema:
         type: string
+    metricsFrequencyParameter:
+      name: metrics_frequency
+      in: query
+      description: >-
+        Metrics Frequency parameter indicates frequency of metrics to be returned.
+        Mandatory parameter with allowed values 'weekly' and 'monthly' case-insensitive.
+      example: weekly
+      required: true
+      schema:
+        type: string
   responses:
     MatchesResponse:
       description: Operation was successful.
@@ -426,6 +437,12 @@ components:
             The date of the last Mastercard transaction processed for this
             merchant.
           example: '2022-01-13'
+        metricsFrequency:
+          type: string
+          description: >-
+            Metrics Frequency parameter indicates frequency of metrics to be returned.
+            Mandatory parameter with allowed values 'weekly' and 'monthly' case-insensitive.
+          example: weekly
         metricsLists:
           type: array
           description: >-

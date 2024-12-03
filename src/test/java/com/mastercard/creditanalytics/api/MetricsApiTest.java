@@ -29,15 +29,21 @@ import java.security.cert.CertificateException;
 public class MetricsApiTest {
     @Test
     public void getMetricsTest() throws ApiException, UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
-        Assert.assertNotNull(ApiExamples.getFullyPopulatedMetrics());
-        Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeMetrics());
-        Assert.assertNotNull(ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics());
+        Assert.assertNotNull(ApiExamples.getFullyPopulatedWeeklyMetrics());
+
+        Assert.assertNotNull(ApiExamples.getFullyPopulateMonthlyMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeMonthlyMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeWeeklyMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMonthlyMetrics());
+        Assert.assertNotNull(ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyWeeklyMetrics());
         Assert.assertNotNull(ApiExamples.getMerchantWithLessThan52WeeksMetrics());
-
+        Assert.assertNotNull(ApiExamples.getMerchantWithLessThan12MonthsMonthlyMetrics());
         Assert.assertThrows(ApiException.class, ApiExamples::throwsMetricsNotFound);
-        Assert.assertThrows(ApiException.class, ApiExamples::throwsLocationNotFound);
-        Assert.assertThrows(ApiException.class, ApiExamples::throwsConsentNotProvided);
-
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsLocationNotFoundForMonthly);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsLocationNotFoundForWeekly);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsMonthlyConsentNotProvided);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsWeeklyConsentNotProvided);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsMetricFrequencyNotFound);
         //Benchmarks metrics test cases
         Assert.assertNotNull(ApiExamples.getFullyPopulatedBenchmarksMetrics());
         Assert.assertNotNull(ApiExamples.getMerchantWithLowTransactionVolumeBenchmarksMetrics());
