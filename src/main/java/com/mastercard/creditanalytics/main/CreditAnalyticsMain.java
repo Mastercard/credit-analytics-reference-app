@@ -15,18 +15,21 @@ public class CreditAnalyticsMain {
     public static void main(String[] args) throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         Logger log = Logger.getLogger("CreditAnalyticsMain");
 
-        // Match by MID examples
-        log.log(Level.INFO,"SingleMatchByMID: {0}", ApiExamples.getSingleMatchByMID());
-        log.log(Level.INFO,"MultipleMatchesByMID: {0}", ApiExamples.getMultipleMatchesByMID());
+        // Match by Merchant ID examples
+        log.log(Level.INFO,"SingleMatchByMerchantID: {0}", ApiExamples.getSingleMatchByMerchantId());
+        log.log(Level.INFO,"MultipleMatchesByMerchantID: {0}", ApiExamples.getMultipleMatchesByMerchantId());
 
-        // Match by MID error examples
+        // Match by TAX ID examples
+        log.log(Level.INFO,"SingleMatchByTaxID: {0}",ApiExamples.getSingleMatchByTaxId());
+
+        // Match by ID error examples
         try{ ApiExamples.throwsInvalidIDType(); } catch(Exception e){ log.info(e.getMessage()); }
+        try{ ApiExamples.throwsInvalidCountryTaxIDType(); } catch(Exception e){ log.info(e.getMessage()); }
         try{ ApiExamples.throwsNoMatchFoundByMID(); } catch (Exception e){ log.info(e.getMessage()); }
         try{ ApiExamples.throwsInvalidIDValue(); } catch(Exception e){ log.info(e.getMessage()); }
 
         // Matches by Name and Address examples
         log.log(Level.INFO, "SingleMatchByNameAndAddress: {0}", ApiExamples.getSingleMatchByNameAndAddress());
-        log.log(Level.INFO, "MultipleMatchesByNameAndAddress: {0}", ApiExamples.getMultipleMatchesByNameAndAddress());
 
         // Matches by Name and Address error examples
         try { ApiExamples.throwsNoMatchFoundByNameAndAddress(); } catch (Exception e) { log.info(e.getMessage()); }
@@ -35,19 +38,29 @@ public class CreditAnalyticsMain {
         try { ApiExamples.throwsInvalidCountryCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
 
         // Metrics examples
-        log.log(Level.INFO, "FullyPopulatedMetrics: {0}", ApiExamples.getFullyPopulatedMetrics());
-        log.log(Level.INFO, "LowTransactionVolumeMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeMetrics());
-        log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMetrics());
-        log.log(Level.INFO, "LessThan52WeeksMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMetrics());
+        log.log(Level.INFO, "FullyPopulatedWeeklyMetrics: {0}", ApiExamples.getFullyPopulatedWeeklyMetrics());
+        log.log(Level.INFO, "LowTransactionVolumeWeeklyMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeWeeklyMetrics());
+        log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyWeeklyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyWeeklyMetrics());
+        log.log(Level.INFO, "LessThan52WeeksWeeklyMetrics: {0}", ApiExamples.getMerchantWithLessThan52WeeksMetrics());
+
+        //Monthly
+        log.log(Level.INFO, "LowTransactionVolumeMonthlyMetrics: {0}", ApiExamples.getMerchantWithLowTransactionVolumeMonthlyMetrics());
+        log.log(Level.INFO, "NoDataFromCurrentOrPreviousYearYoyMonthlyMetrics: {0}", ApiExamples.getMerchantWithNoDataFromCurrentOrPreviousYearYoyMonthlyMetrics());
+        log.log(Level.INFO, "LessThan12MonthsMonthlyMetrics: {0}", ApiExamples.getMerchantWithLessThan12MonthsMonthlyMetrics());
+        log.log(Level.INFO, "FullyPopulatedMetrics for monthly: {0}", ApiExamples.getFullyPopulateMonthlyMetrics());
+
 
         // Metrics error examples
         try { ApiExamples.throwsMetricsNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
-        try { ApiExamples.throwsLocationNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
-        try { ApiExamples.throwsConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
-
+        try { ApiExamples.throwsLocationNotFoundForWeekly(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsLocationNotFoundForMonthly(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsWeeklyConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsMonthlyConsentNotProvided(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsMetricFrequencyNotFound(); } catch (Exception e) { log.info(e.getMessage()); }
         // Example business use case calling matches, then metrics
         // This will return the same metrics as ApiExamples.GetFullyPopulatedMetrics()
-        log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getMetricsUsingMatchResults());
+        log.log(Level.INFO, "MetricsFromMatch for Monthly : {0}", ApiExamples.getMetricsMonthlyUsingMatchResults());
+        log.log(Level.INFO, "MetricsFromMatch for Weekly: {0}", ApiExamples.getMetricsWeeklyUsingMatchResults());
 
         //Benchmarks metrics examples
         log.log(Level.INFO, "FullyPopulatedBenchmarksMetrics: {0}", ApiExamples.getFullyPopulatedBenchmarksMetrics());
