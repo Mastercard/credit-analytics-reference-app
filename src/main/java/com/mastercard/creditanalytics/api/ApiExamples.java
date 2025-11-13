@@ -38,8 +38,9 @@ public class ApiExamples {
     public static final String MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D02";
     public static final String EXAMPLE_INVALID_ID_TYPE = "MERCHANT_ID2";
     public static final String EXAMPLE_INVALID_ID_VALUE = "MERCHANT_ID1234567";
+    public static final String EXAMPLE_AGG_ID_TYPE = "106241230AGG";
     public static final String NO_MATCH_ID_VALUE = "106241230D0122";
-
+    public static final String NO_MATCH_COMPANY_NAME_AGG = "Whole Trade Inc";
     public static final String FULLY_POPULATED_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000001";
     public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000002";
     public static final String MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000003";
@@ -62,14 +63,15 @@ public class ApiExamples {
     private static org.openapitools.client.ApiClient ApiClient;
 
     public static ApiClient getApiClient() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
-        if (ApiClient == null) {
+        if (ApiClient == null){
             ApiClient = ApiHelper.getApiClient(
                     "https://sandbox.api.mastercard.com/small-business/credit-analytics/locations",
-                    "path\\to\\your\\private_key.p12", // a reasonable place to store this would be src/main/resources/*.p12
-                    "your keyalias",
-                    "your keystorepassword",
-                    "consumer key from your Developer Zone project");
+                    "C:\\Users\\e168505\\Downloads\\SBCA-sandbox-signing 3.p12",
+                    "keyalias",
+                    "keyalias123",
+                    "rc9ZEL38hO3HEy58NJ-mxR3d-NMV7OAtlit-uGsX1b414349!d57c19b3a3414a2eaca7582d039e63e20000000000000000");
         }
+
 
         return ApiClient;
     }
@@ -146,6 +148,20 @@ public class ApiExamples {
         );
     }
 
+    public static List<Match> throwsAggregatedMerchantNotPermittedByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                USA_COUNTRY_CODE,
+                EXAMPLE_INVALID_ID_TYPE,
+                EXAMPLE_AGG_ID_TYPE
+
+        );
+    }
+
     public static List<Match> throwsInvalidIDValue() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 null,
@@ -183,6 +199,18 @@ public class ApiExamples {
                 null
         );
     }
+    public static List<Match> throwsAggregatedMerchantNotPermittedByNameAndAddress() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                NO_MATCH_COMPANY_NAME_AGG,
+                SINGLE_MATCH_STREET_ADDRESS,
+                EXAMPLE_POSTAL_CODE,
+                EXAMPLE_CITY,
+                EXAMPLE_STATE_PROVINCE_CODE,
+                USA_COUNTRY_CODE,
+                null,
+                null
+        );
+    }
 
     public static List<Match> throwsInvalidPostalCodeApiException() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
@@ -196,6 +224,8 @@ public class ApiExamples {
                 null
         );
     }
+
+
 
     public static List<Match> throwsGetInvalidStateProvinceCodeApiException() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
