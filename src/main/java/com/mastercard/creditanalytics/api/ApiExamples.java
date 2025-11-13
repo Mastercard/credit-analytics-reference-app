@@ -65,11 +65,10 @@ public class ApiExamples {
     public static ApiClient getApiClient() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
         if (ApiClient == null){
             ApiClient = ApiHelper.getApiClient(
-                    "https://sandbox.api.mastercard.com/small-business/credit-analytics/locations",
-                    "C:\\Users\\e168505\\Downloads\\SBCA-sandbox-signing 3.p12",
-                    "keyalias",
-                    "keyalias123",
-                    "rc9ZEL38hO3HEy58NJ-mxR3d-NMV7OAtlit-uGsX1b414349!d57c19b3a3414a2eaca7582d039e63e20000000000000000");
+                    "path\\to\\your\\private_key.p12", // a reasonable place to store this would be src/main/resources/*.p12
+                    "your keyalias",
+                    "your keystorepassword",
+                    "consumer key from your Developer Zone project");
         }
 
 
