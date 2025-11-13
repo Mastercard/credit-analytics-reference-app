@@ -15,18 +15,21 @@ public class CreditAnalyticsMain {
     public static void main(String[] args) throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         Logger log = Logger.getLogger("CreditAnalyticsMain");
 
-        // Match by MID examples
-        log.log(Level.INFO,"SingleMatchByMID: {0}", ApiExamples.getSingleMatchByMID());
-        log.log(Level.INFO,"MultipleMatchesByMID: {0}", ApiExamples.getMultipleMatchesByMID());
+        // Match by Merchant ID examples
+        log.log(Level.INFO,"SingleMatchByMerchantID: {0}", ApiExamples.getSingleMatchByMerchantId());
+        log.log(Level.INFO,"MultipleMatchesByMerchantID: {0}", ApiExamples.getMultipleMatchesByMerchantId());
 
-        // Match by MID error examples
+        // Match by TAX ID examples
+        log.log(Level.INFO,"SingleMatchByTaxID: {0}",ApiExamples.getSingleMatchByTaxId());
+
+        // Match by ID error examples
         try{ ApiExamples.throwsInvalidIDType(); } catch(Exception e){ log.info(e.getMessage()); }
+        try{ ApiExamples.throwsInvalidCountryTaxIDType(); } catch(Exception e){ log.info(e.getMessage()); }
         try{ ApiExamples.throwsNoMatchFoundByMID(); } catch (Exception e){ log.info(e.getMessage()); }
         try{ ApiExamples.throwsInvalidIDValue(); } catch(Exception e){ log.info(e.getMessage()); }
 
         // Matches by Name and Address examples
         log.log(Level.INFO, "SingleMatchByNameAndAddress: {0}", ApiExamples.getSingleMatchByNameAndAddress());
-        log.log(Level.INFO, "MultipleMatchesByNameAndAddress: {0}", ApiExamples.getMultipleMatchesByNameAndAddress());
 
         // Matches by Name and Address error examples
         try { ApiExamples.throwsNoMatchFoundByNameAndAddress(); } catch (Exception e) { log.info(e.getMessage()); }

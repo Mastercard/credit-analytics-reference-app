@@ -34,11 +34,15 @@ public class ApiExamples {
     public static final String EXAMPLE_STATE_PROVINCE_CODE = "NY";
     public static final String USA_COUNTRY_CODE = "USA";
     public static final String EXAMPLE_ID_TYPE_MERCHANT_ID = "MERCHANT_ID";
-    public static final String SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D01";
-    public static final String MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D02";
+    public static final String SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_TYPE = "106241230D01";
+    public static final String MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_TYPE = "106241230D02";
     public static final String EXAMPLE_INVALID_ID_TYPE = "MERCHANT_ID2";
     public static final String EXAMPLE_INVALID_ID_VALUE = "MERCHANT_ID1234567";
     public static final String NO_MATCH_ID_VALUE = "106241230D0122";
+
+    public static final String BRA_COUNTRY_CODE = "BRA";
+    public static final String EXAMPLE_ID_TYPE_TAX_ID = "TAX_ID";
+    public static final String SINGLE_MATCH_EXAMPLE_ID_VALUE_TAX_ID_TYPE = "29152490000123";
 
     public static final String FULLY_POPULATED_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000001";
     public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000002";
@@ -82,7 +86,7 @@ public class ApiExamples {
      * string parameters and enforcing regex for allowed characters
      * */
 
-    public static List<Match> getSingleMatchByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static List<Match> getSingleMatchByMerchantId() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 null,
                 null,
@@ -91,10 +95,10 @@ public class ApiExamples {
                 null,
                 USA_COUNTRY_CODE,
                 EXAMPLE_ID_TYPE_MERCHANT_ID,
-                SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
+                SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_TYPE
         );
     }
-    public static List<Match> getMultipleMatchesByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+    public static List<Match> getMultipleMatchesByMerchantId() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 null,
                 null,
@@ -103,7 +107,19 @@ public class ApiExamples {
                 null,
                 USA_COUNTRY_CODE,
                 EXAMPLE_ID_TYPE_MERCHANT_ID,
-                MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
+                MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_TYPE
+        );
+    }
+    public static List<Match> getSingleMatchByTaxId() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                BRA_COUNTRY_CODE,
+                EXAMPLE_ID_TYPE_TAX_ID,
+                SINGLE_MATCH_EXAMPLE_ID_VALUE_TAX_ID_TYPE
         );
     }
 
@@ -142,7 +158,19 @@ public class ApiExamples {
                 null,
                 USA_COUNTRY_CODE,
                 EXAMPLE_INVALID_ID_TYPE ,
-                SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE
+                SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_TYPE
+        );
+    }
+    public static List<Match> throwsInvalidCountryTaxIDType () throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                USA_COUNTRY_CODE,
+                EXAMPLE_ID_TYPE_TAX_ID ,
+                SINGLE_MATCH_EXAMPLE_ID_VALUE_MERCHANT_ID_TYPE
         );
     }
 

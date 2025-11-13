@@ -31,8 +31,9 @@ public class MatchingApiTest {
     public void getMatchesTest() throws ApiException, UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException {
         Assert.assertNotNull(ApiExamples.getSingleMatchByNameAndAddress());
         Assert.assertNotNull(ApiExamples.getMultipleMatchesByNameAndAddress());
-        Assert.assertNotNull(ApiExamples.getSingleMatchByMID());
-        Assert.assertNotNull(ApiExamples.getMultipleMatchesByMID());
+        Assert.assertNotNull(ApiExamples.getSingleMatchByMerchantId());
+        Assert.assertNotNull(ApiExamples.getMultipleMatchesByMerchantId());
+        Assert.assertNotNull(ApiExamples.getSingleMatchByTaxId());
 
         // Matches error examples
         Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFoundByNameAndAddress);
@@ -42,5 +43,6 @@ public class MatchingApiTest {
         Assert.assertThrows(ApiException.class, ApiExamples::throwsNoMatchFoundByMID);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidIDType);
         Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidIDValue);
+        Assert.assertThrows(ApiException.class, ApiExamples::throwsInvalidCountryTaxIDType);
     }
 }
