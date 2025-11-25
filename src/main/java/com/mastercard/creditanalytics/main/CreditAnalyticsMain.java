@@ -22,6 +22,7 @@ public class CreditAnalyticsMain {
         // Match by MID error examples
         try{ ApiExamples.throwsInvalidIDType(); } catch(Exception e){ log.info(e.getMessage()); }
         try{ ApiExamples.throwsNoMatchFoundByMID(); } catch (Exception e){ log.info(e.getMessage()); }
+        try { ApiExamples.throwsAggregatedMerchantNotPermittedByMID(); } catch (Exception e) { log.info(e.getMessage()); }
         try{ ApiExamples.throwsInvalidIDValue(); } catch(Exception e){ log.info(e.getMessage()); }
 
         // Matches by Name and Address examples
@@ -31,6 +32,7 @@ public class CreditAnalyticsMain {
         // Matches by Name and Address error examples
         try { ApiExamples.throwsNoMatchFoundByNameAndAddress(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsInvalidPostalCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
+        try { ApiExamples.throwsAggregatedMerchantNotPermittedByNameAndAddress(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsGetInvalidStateProvinceCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
         try { ApiExamples.throwsInvalidCountryCodeApiException(); } catch (Exception e) { log.info(e.getMessage()); }
 
@@ -73,4 +75,3 @@ public class CreditAnalyticsMain {
         log.log(Level.INFO, "MetricsFromMatch: {0}", ApiExamples.getBenchmarksMetricsUsingMatchResults());
     }
 }
-

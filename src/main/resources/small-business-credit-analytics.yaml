@@ -46,6 +46,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/AggregatedMerchantNotPermittedExample'
         '404':
           $ref: '#/components/responses/NotFound'
       security:
@@ -144,6 +146,17 @@ components:
               Details: >-
                 Consent from the merchant is required in order to access
                 performance metrics for said merchant
+    AggregatedMerchantNotPermittedExample:
+      value:
+        Errors:
+          Error:
+            - Source: CreditAnalytics
+              ReasonCode: AGG_MERCHANT_NOT_PERMITTED
+              Description: No permission to retrieve the match for an aggregated merchant
+              Recoverable: false
+              Details: >-
+                Merchant you are trying to search for is an aggregated merchant. SBCA only works with small and medium businesses. Please provide non-aggregated merchant data to receive a match.
+
     NotFoundExample:
       value:
         Errors:
@@ -328,6 +341,18 @@ components:
           examples:
             ForbiddenExample:
               $ref: '#/components/examples/ForbiddenExample'
+    AggregatedMerchantNotPermittedExample:
+      description: >-
+        You are not authorized to access the requested information. See the
+                response payload for more information.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorWrapper'
+          examples:
+            ForbiddenExample:
+              $ref: '#/components/examples/AggregatedMerchantNotPermittedExample'
+
     NotFound:
       description: >-
         We were unable to find resources for the specified parameters. See the

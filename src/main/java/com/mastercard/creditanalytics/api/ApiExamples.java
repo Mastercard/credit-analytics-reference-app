@@ -38,8 +38,9 @@ public class ApiExamples {
     public static final String MULTIPLE_MATCHES_EXAMPLE_ID_VALUE_MERCHANT_ID_VALUE = "106241230D02";
     public static final String EXAMPLE_INVALID_ID_TYPE = "MERCHANT_ID2";
     public static final String EXAMPLE_INVALID_ID_VALUE = "MERCHANT_ID1234567";
+    public static final String  EXAMPLE_AGG_MERCHANT_ID_VALUE = "106241230AGG";
     public static final String NO_MATCH_ID_VALUE = "106241230D0122";
-
+    public static final String AGG_MERCHANT_COMPANY_EXAMPLE = "Whole Trade Inc";
     public static final String FULLY_POPULATED_METRICS_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000001";
     public static final String MERCHANT_WITH_LOW_TRANSACTION_VOLUME_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000002";
     public static final String MERCHANT_WITH_NO_DATA_FROM_CURRENT_OR_PREVIOUS_YEAR_YOY_LOCATION_ID = "a1b2c3d4-0000-1234-abcd-000000000003";
@@ -70,6 +71,7 @@ public class ApiExamples {
                     "your keystorepassword",
                     "consumer key from your Developer Zone project");
         }
+
 
         return ApiClient;
     }
@@ -146,6 +148,20 @@ public class ApiExamples {
         );
     }
 
+    public static List<Match> throwsAggregatedMerchantNotPermittedByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                null,
+                null,
+                null,
+                null,
+                null,
+                USA_COUNTRY_CODE,
+                EXAMPLE_ID_TYPE_MERCHANT_ID,
+                EXAMPLE_AGG_MERCHANT_ID_VALUE
+
+        );
+    }
+
     public static List<Match> throwsInvalidIDValue() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
                 null,
@@ -183,6 +199,18 @@ public class ApiExamples {
                 null
         );
     }
+    public static List<Match> throwsAggregatedMerchantNotPermittedByNameAndAddress() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
+        return new MatchingApi(getApiClient()).getMatches(
+                AGG_MERCHANT_COMPANY_EXAMPLE,
+                SINGLE_MATCH_STREET_ADDRESS,
+                EXAMPLE_POSTAL_CODE,
+                EXAMPLE_CITY,
+                EXAMPLE_STATE_PROVINCE_CODE,
+                USA_COUNTRY_CODE,
+                null,
+                null
+        );
+    }
 
     public static List<Match> throwsInvalidPostalCodeApiException() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
@@ -196,6 +224,8 @@ public class ApiExamples {
                 null
         );
     }
+
+
 
     public static List<Match> throwsGetInvalidStateProvinceCodeApiException() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
         return new MatchingApi(getApiClient()).getMatches(
