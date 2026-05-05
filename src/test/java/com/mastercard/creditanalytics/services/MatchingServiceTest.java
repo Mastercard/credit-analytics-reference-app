@@ -39,4 +39,11 @@ public class MatchingServiceTest {
         assertSame(expected, actual);
         verify(matchingApi).getMatches("co", "addr", "10577", "Purchase", "NY", "USA", "MERCHANT_ID", "MID-1");
     }
+
+    @Test
+    public void apiClientConstructor_buildsService() {
+        // covers MatchingService(ApiClient) constructor branch
+        MatchingService s = new MatchingService(new org.openapitools.client.ApiClient());
+        org.junit.Assert.assertNotNull(s);
+    }
 }

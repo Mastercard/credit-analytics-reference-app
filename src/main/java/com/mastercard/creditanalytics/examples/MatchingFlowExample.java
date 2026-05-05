@@ -37,6 +37,11 @@ public final class MatchingFlowExample {
         return cachedService;
     }
 
+    /** Test hook: inject a mock service or reset by passing {@code null}. */
+    public static void setService(MatchingService service) {
+        cachedService = service;
+    }
+
     /* ---------- happy path: by MID ---------- */
 
     public static List<Match> getSingleMatchByMID() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {

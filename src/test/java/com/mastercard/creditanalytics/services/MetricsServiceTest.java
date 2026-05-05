@@ -38,4 +38,10 @@ public class MetricsServiceTest {
         assertSame(expected, actual);
         verify(metricsApi).getMetrics(locationId, true, "Weekly", "retail_sales_analytics");
     }
+
+    @Test
+    public void apiClientConstructor_buildsService() {
+        MetricsService s = new MetricsService(new org.openapitools.client.ApiClient());
+        org.junit.Assert.assertNotNull(s);
+    }
 }

@@ -35,6 +35,11 @@ public final class MetricsFlowExample {
         return cachedService;
     }
 
+    /** Test hook: inject a mock service or reset by passing {@code null}. */
+    public static void setService(MetricsService service) {
+        cachedService = service;
+    }
+
     /* ---------- RSA: weekly happy path ---------- */
 
     public static MetricsPerLocation getFullyPopulatedWeeklyMetrics() throws UnrecoverableKeyException, CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, ApiException {
